@@ -49,13 +49,14 @@ public class FirstStreamer {
                 ));
 
         KStream<String, String> transformed = stream
-                //.filter() //TODO start from here
+                .filter((key, value) -> value.contains("2019"))
                 .map((key, value) -> {
                     Record record = Record.getRecordFromLog(value);
                    return KeyValue.pair(record.title + "_" + record.date, record.value);
                 })
-                .peek((k,v)-> System.out.println("<" + k + "> , <" + v + ">"));
 
+                .peek((k,v)-> System.out.println("<" + k + "> , <" + v + ">"));
+        transformed.to("outputSeriesTopic");
 
         /*
         String outputTopic = "outputSeriesTopic";
