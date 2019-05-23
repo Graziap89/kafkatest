@@ -20,7 +20,7 @@ public class FirstProducer {
 
 
         //Assign topicName to string variable
-        String topicName = "inputTopic";
+        String topicName = "inputTopic2";
 
         Properties props = new Properties();
         props.put("bootstrap.servers", "localhost:9094");

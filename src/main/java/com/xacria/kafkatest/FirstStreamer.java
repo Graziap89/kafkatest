@@ -3,9 +3,9 @@ package com.xacria.kafkatest;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
+import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.KStream;
-import org.apache.kafka.streams.kstream.KStreamBuilder;
 import org.apache.kafka.streams.kstream.KTable;
 
 import java.util.Arrays;
@@ -36,7 +36,7 @@ public class FirstStreamer {
 
 
 
-        KStreamBuilder builder = new KStreamBuilder();
+        StreamsBuilder builder = new StreamsBuilder();
         KStream<String, String> textLines = builder.stream(inputTopic);
         Pattern pattern = Pattern.compile("\\W+", Pattern.UNICODE_CHARACTER_CLASS);
 
@@ -45,17 +45,13 @@ public class FirstStreamer {
                 .groupBy((key, word) -> word)
                 .count();
 
-        wordCounts
-                .foreach((w, c) -> System.out.println("word: " + w + " -> " + c));
+        wordCounts.toStream()
+                 .peek((w, c) -> System.out.println("word: " + w + " -> " + c))
+        .to("outputTopic");
 
 
-        String outputTopic = "outputTopic";
-        Serde<String> stringSerde = Serdes.String();
-        Serde<Long> longSerde = Serdes.Long();
-        wordCounts.to(stringSerde, longSerde, outputTopic);
 
-
-        KafkaStreams streams = new KafkaStreams(builder, streamsConfiguration);
+        KafkaStreams streams = new KafkaStreams(builder.build(), streamsConfiguration);
         streams.start();
 
         Thread.sleep(30000);

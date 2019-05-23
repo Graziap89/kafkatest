@@ -2,7 +2,6 @@ package com.xacria.seriesStream;
 
 //import util.properties packages
 
-import com.google.gson.Gson;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -17,9 +16,9 @@ import java.util.Random;
 //import KafkaProducer packages
 //import ProducerRecord packages
 
-public class FirstProducer {
+public class SeriesProducer {
 
-    FirstProducer(){}
+    SeriesProducer(){}
 
     public List<String> generateRandomSeries(){
         List<String> lista= new ArrayList<>();
@@ -52,7 +51,7 @@ public class FirstProducer {
     }
 
     public static void main(String[] args) throws Exception{
-        FirstProducer firstProducer = new FirstProducer();
+        SeriesProducer firstProducer = new SeriesProducer();
         List<String> lista =firstProducer.generateRandomSeries();
 
         //Assign topicName to string variable

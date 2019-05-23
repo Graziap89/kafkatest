@@ -1,4 +1,4 @@
-package com.xacria.socket;
+package com.xacria.socket.seample;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,5 @@
 package com.xacria.kafkatest;
+import java.time.Duration;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Arrays;
@@ -11,7 +12,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 public class FirstConsumer {
     public static void main(String[] args) throws Exception {
 
-        String topic = "outputTopic";
+        String topic = "inputTopic2";
         String group = "ciao"+new Date().getTime();
 
         Properties props = new Properties();
@@ -32,7 +33,7 @@ public class FirstConsumer {
         int i = 0;
 
         while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(100);
+            ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(1));
             for (ConsumerRecord<String, String> record : records)
                 System.out.printf("offset = %d, key = %s, value = %s\n",
                         record.offset(), record.key(), record.value());
