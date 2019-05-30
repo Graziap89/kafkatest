@@ -59,10 +59,8 @@ public class SeriesStreamer {
 
         streams.start();
 
-        Thread.sleep(50000);
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            streams.close();
-        }));
+        //Thread.sleep(50000);
+        //Runtime.getRuntime().addShutdownHook(new Thread(() -> { streams.close(); }));
 
     }
 }

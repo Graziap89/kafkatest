@@ -23,14 +23,14 @@ public class SeriesProducer {
     public List<String> generateRandomSeries(){
         List<String> lista= new ArrayList<>();
         StringBuilder stringBuilder=new StringBuilder();
-        for(int i = 0; i < 100; i++){
+        for(int i = 0; i < 1000; i++){
 
             stringBuilder
                     .append("")
                     .append("serie")
                     .append(((int)Math.floor(Math.random()*4+1)))
                     .append(",")
-                    .append(generateRandomInt(2000,2019))
+                    .append(generateRandomInt(2015, 2019))
                     .append("-")
                     .append((int)Math.floor(Math.random()*12)+1)
                     .append("-")
@@ -65,11 +65,10 @@ public class SeriesProducer {
         Producer<String, String> producer = new KafkaProducer
                 <String, String>(props);
 
-        for(int i = 0; i <lista.size(); i++)
-            producer.send(new ProducerRecord<String, String>(topicName,lista.get(i)));
+        for(int i = 0; i <lista.size(); i++) {
+            producer.send(new ProducerRecord<String, String>(topicName, lista.get(i)));
+            Thread.sleep(100);
+        }
         System.out.println("Message sent successfully");
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            producer.close();
-        }));
     }
 }
