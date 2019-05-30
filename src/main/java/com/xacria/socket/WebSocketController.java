@@ -16,6 +16,7 @@ public class WebSocketController implements Runnable{
         new Thread(this).start();
 
     }
+
     @PostConstruct
     public void postConstruct(){
         System.out.print("Start websocket");

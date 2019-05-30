@@ -16,7 +16,7 @@ public class SeriesStreamer {
         String outputSeriesTopic = "outputSeriesTopic";
 
         Properties streamsConfiguration = new Properties();
-        streamsConfiguration.put(StreamsConfig.APPLICATION_ID_CONFIG, "wordcount-live-test4");
+        streamsConfiguration.put(StreamsConfig.APPLICATION_ID_CONFIG, "seriesStream"+System.currentTimeMillis());
         streamsConfiguration.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9094");
         streamsConfiguration.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         streamsConfiguration.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
@@ -59,10 +59,10 @@ public class SeriesStreamer {
 
         streams.start();
 
-        Thread.sleep(10000);
-        streams.close();
-
-
+        Thread.sleep(50000);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            streams.close();
+        }));
 
     }
 }

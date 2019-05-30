@@ -68,6 +68,8 @@ public class SeriesProducer {
         for(int i = 0; i <lista.size(); i++)
             producer.send(new ProducerRecord<String, String>(topicName,lista.get(i)));
         System.out.println("Message sent successfully");
-        producer.close();
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            producer.close();
+        }));
     }
 }
