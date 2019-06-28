@@ -49,7 +49,21 @@ public class MClient {
         MongoDatabase database = mongoClient.getDatabase("test");
         MongoCollection<Document> collection = database.getCollection("restaurants");
 
-    //query
+
+
+     //Documento
+        Document document = new Document("Serie", 1)
+                .append("data", new Document("Data",  "28-07-2019"))
+                        .append("value", "5");
+
+        FindIterable<Document> res = collection.find(new Document("data", new Document("Serie", 1)));
+        System.out.println("start printing - Serie 1");
+        for (Document document1: res)
+            System.out.println(document.toJson());
+        System.out.println("end printing");
+
+
+    /*query
 
         FindIterable<Document> res = collection.find(new Document("stars", new Document("$gte", 2)
                 .append("$lt", 5))
@@ -161,6 +175,7 @@ public class MClient {
                                 new Document("_id", 3).append("x", 4))),
                 new BulkWriteOptions().ordered(false));*/
      //aggregation
+        /*
         AggregateIterable<Document> res5 = collection.aggregate(
                 Arrays.asList(
                         Aggregates.match(eq("categories", "Bakery")),
@@ -190,7 +205,7 @@ public class MClient {
         System.out.println("Res6 printing");
         for (Document document6: res6)
             System.out.println(document6.toJson());
-        System.out.println("Res5 end printing");
+        System.out.println("Res5 end printing");*/
 
 
     }

@@ -1,6 +1,7 @@
 package com.xacria.seriesStream;
 
 
+import com.xacria.MongoDB.MongodbCustom;
 import com.xacria.model.Record;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
@@ -32,7 +33,6 @@ public class SeriesStreamer {
                 })
                 .peek((k,v)-> System.out.println("<" + k + "> , <" + v + ">"))
                 .to(outputSeriesTopic);
-
 
         //KStream<String, String> stream = builder.<String,String>stream(inputTopic).filter((key, value) ->value.contains("2019"));
 
